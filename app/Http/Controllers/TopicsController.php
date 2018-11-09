@@ -39,7 +39,7 @@ class TopicsController extends Controller
         $topic->fill($request->all());
         $topic->user_id = Auth::id();
         $topic->save();
-		return redirect()->route('topics.show', $topic->id)->with('success', 'Created successfully.');
+		return redirect()->to($topic->link())->with('success', 'Created successfully.');
 	}
 
 	public function edit(Topic $topic)
@@ -54,7 +54,7 @@ class TopicsController extends Controller
 		$this->authorize('update', $topic);
 		$topic->update($request->all());
 
-		return redirect()->route('topics.show', $topic->id)->with('success', 'Updated successfully.');
+		return redirect()->to($topic->link())->with('success', 'Updated successfully.');
 	}
 
 	public function destroy(Topic $topic)
