@@ -47,7 +47,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reply::class);
     }
-
+    //登錄者id是否和要進行授權的用戶id是否一致
     public function isAuthorOf($model)
     {
         return $this->id == $model->user_id;
