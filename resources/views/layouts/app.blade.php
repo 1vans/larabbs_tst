@@ -32,9 +32,9 @@
     @include('sudosu::user-selector')
 @endif
 
-@yield('scripts')
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 @yield('scripts')
+
 </body>
 </html>

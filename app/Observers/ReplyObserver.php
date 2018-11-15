@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Reply;
+use App\Models\User;
 use App\Notifications\TopicReplied;
 
 // creating, created, updating, updated, saving,
@@ -33,5 +34,14 @@ class ReplyObserver
 
         // 通知作者话题被回复了
         $topic->user->notify(new TopicReplied($reply));
+        // 通知回复中 @ 到的人被提及了
+        $mentionIds = explode(",", $reply->mention_ids);
+        $mentionUsers = User::whereIn('id', $mentionIds)->get();
+        foreach ($mentionUsers as $mentionUser) {
+            // 过滤 @ 原作者
+            if ($mentionUser->id != $topic->user->id) {
+                $mentionUser->notify(new TopicReplied($reply, 'mention'));
+            }
+        }
     }
 }

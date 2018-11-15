@@ -4,6 +4,8 @@ namespace App\Models;
 
 class Reply extends Model
 {
+    // @ 功能
+    use Traits\MentionHelper;
     protected $fillable = ['content'];
 
     public function topic()
